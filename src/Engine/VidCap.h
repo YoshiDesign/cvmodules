@@ -6,9 +6,10 @@ namespace engine {
 
 		int capture();
 		int capture2();
-		void cannyFrame(cv::Mat& img, cv::Mat& out);
 		int capture3();
 		int capture4();
+		void cannyFrame(cv::Mat& img, cv::Mat& out);
+		
 	}
 
 }
