@@ -9,6 +9,8 @@ namespace engine {
 		int image1();
 		void image2();
 		void image3();
+		void image4();
+		void image5();
 
 	}
 

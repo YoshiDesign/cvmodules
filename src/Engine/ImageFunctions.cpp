@@ -1,4 +1,4 @@
-#include <iostream> // Remove
+#include <iostream>
 //#include <stdio.h>
 
 #include "opencv2/core.hpp"
@@ -140,6 +140,72 @@ namespace engine {
 			cv::waitKey(0);
 
 		}
+
+		// Image mask (Zero Values)
+		void image4()
+		{
+
+			std::cout << "???????" << std::endl;
+			std::cout << "???????" << std::endl;
+
+			cv::Mat im1(720, 1080, CV_8UC3, cv::Scalar(90, 100, 100));
+			cv::Mat logo;
+			logo = cv::imread("./img/sum.bmp", 1);
+
+			cv::Rect roi = cv::Rect(im1.cols - logo.cols, im1.rows - logo.rows, logo.cols, logo.rows);
+			cv::Mat imageRoi(im1, roi);
+			cv::Mat mask(logo);
+			logo.copyTo(imageRoi, mask);
+			cv::imshow("Hello", im1);
+			cv::waitKey(0);
+
+		}
+
+		// Salt & pepper noise
+		void salt(cv::Mat img, int n) 
+		{
+			int i, j;
+
+			for (int k = 0; k < n; k++)
+			{
+			
+				i = std::rand() % img.cols;
+				j = std::rand() % img.rows;
+
+				// If it's a grayscale image
+				if (img.type() == CV_8UC1)
+				{
+					
+					img.at<uchar>(j, i) = 255;
+				}
+				// If it's a color image
+				else if (img.type() == CV_8UC3)
+				{
+					if (img.at<cv::Vec3b>(j, i)[0] >= 200) {
+						img.at<cv::Vec3b>(j, i)[0] = 15;
+						img.at<cv::Vec3b>(j, i)[1] = 15;
+						img.at<cv::Vec3b>(j, i)[2] = 15;
+					}
+					else {
+						img.at<cv::Vec3b>(j, i)[0] = 255;
+						img.at<cv::Vec3b>(j, i)[1] = 255;
+						img.at<cv::Vec3b>(j, i)[2] = 255;
+					}
+				}
+
+			}
+
+		}
+		void image5()
+		{
+			cv::Mat img = cv::imread("./img/brdhand.png");
+			std::cout << img.channels() << std::endl;
+			salt(img, 13000);
+			cv::imshow("HelllO", img);
+			cv::waitKey(0);
+		}
+
+
 
 
 	}
