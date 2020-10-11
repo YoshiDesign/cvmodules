@@ -12,7 +12,7 @@ namespace engine{
 
 	namespace scanning {
 	
-		void reduceColor(cv::Mat img, int factor = 64)
+		void reduceColor(cv::Mat_<cv::Vec3b> img, int factor = 64)
 		{
 			int nl = img.rows;						// number of lines
 			int nc = img.cols * img.channels();		// total number of elements per line
@@ -32,11 +32,11 @@ namespace engine{
 					data[i] = (data[i] / factor) * factor + factor / 2;
 
 					// Or using pointer arithmetic DBUG
-					//*data = (*data / factor) * factor + factor/2;
+					
 					//std::cout << *data << std::endl;
 					
 
-					// Or via modular arithmetic DBUG
+					// Or via modular arithmetic
 					//data[i] = data[i] - data[i] % factor + factor / 2;
 
 					// Or via bitwise ops
@@ -68,12 +68,57 @@ namespace engine{
 			cv::waitKey(0);
 		}
 
-		// Iterator
+
+
+
+		// Iterators
+		void reduceColorIT(cv::Mat_<cv::Vec3b> img, int factor = 64)
+		{
+			// Begin
+			//cv::Mat_<cv::Vec3b>::iterator itrBegin = img.begin<cv::Vec3b>()/* + img.cols * (img.rows / 2)*/ ;
+			// End
+			//cv::Mat_<cv::Vec3b>::iterator itrEnd = img.end<cv::Vec3b>();
+
+			cv::MatIterator_<cv::Vec3b> itrBegin = img.begin();
+			cv::MatIterator_<cv::Vec3b> itrEnd = img.end();
+
+			// loop over all pixels
+			int i;
+			for (i = 0; itrBegin != itrEnd; itrBegin++)
+			{
+				//std::cout << img.data[i] << std::endl;
+				(*itrBegin)[0] = ((*itrBegin)[0] / factor) * factor + factor / 2;
+				(*itrBegin)[1] = ((*itrBegin)[1] / factor) * factor + factor / 2;
+				(*itrBegin)[2] = ((*itrBegin)[2] / factor) * factor + factor / 2;
+			}
+
+			std::cout << "Pixels: " << i << std::endl;
+		}
+
 		void scan2()
 		{
+			cv::Mat image;
+			image = cv::imread("./img/brdhand.png", CV_8SC3);
+			// Beginning
+			//reduceColorIT(image, 64);
+			cv::imshow("Helllo", image);
+			cv::waitKey(0);
 
-			
+		}
 
+		// My sh*t
+		double scan3()
+		{
+
+			cv::Mat_<cv::Vec3b> img;
+			img = cv::imread("./img/brdhand.png");
+
+			const int64 start = cv::getTickCount();
+			reduceColor(img, 64);
+			double duration = (cv::getTickCount() - start) / cv::getTickFrequency();
+			cv::imshow("Hello", img);
+
+			return duration;
 		}
 	
 	}
