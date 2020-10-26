@@ -7,7 +7,7 @@ namespace engine {
 		void scan1();
 		void scan2();
 		double scan3();
-
+		double test();
 	}
 
 }

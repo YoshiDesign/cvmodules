@@ -12,7 +12,7 @@ namespace engine{
 
 	namespace scanning {
 	
-		void reduceColor(cv::Mat_<cv::Vec3b> img, int factor = 64)
+		void reduceColor(cv::Mat img, int factor = 64)
 		{
 			int nl = img.rows;						// number of lines
 			int nc = img.cols * img.channels();		// total number of elements per line
@@ -21,6 +21,8 @@ namespace engine{
 			Basic method for scanning images.
 			*/
 			uchar *data = img.data;
+			
+
 			for (int j = 0; j < nl; j++)
 			{
 				// Get the address of row J
@@ -28,11 +30,17 @@ namespace engine{
 				
 				for (int i = 0; i < nc; i++)
 				{
+
+
+					data = img.ptr<uchar>(j);
+					*data = 0;
+
 					// Calculate vals like a normal human
-					data[i] = (data[i] / factor) * factor + factor / 2;
+					//data[i] = (data[i] / factor) * factor + factor / 2;
 
 					// Or using pointer arithmetic DBUG
-					
+					// *data = (*data / factor) * factor + factor/2;
+					//data++;
 					//std::cout << *data << std::endl;
 					
 
@@ -41,8 +49,8 @@ namespace engine{
 
 					// Or via bitwise ops
 					//uchar mask = 0xFF<<factor;
-					//*data &= mask;
-					//*data++ += factor >> 1;
+					// *data &= mask;
+					// *data++ += factor >> 1;
 
 				}
 				data += img.step;
@@ -106,20 +114,49 @@ namespace engine{
 
 		}
 
-		// My sh*t
+		// Iter scanning with performance monitor
 		double scan3()
 		{
 
 			cv::Mat_<cv::Vec3b> img;
 			img = cv::imread("./img/brdhand.png");
 
+			if (img.empty())
+			{
+				std::cout << "No image" << std::endl;
+				return 0;
+			}
+
 			const int64 start = cv::getTickCount();
-			reduceColor(img, 64);
+			reduceColorIT(img, 64);
 			double duration = (cv::getTickCount() - start) / cv::getTickFrequency();
 			cv::imshow("Hello", img);
 
 			return duration;
 		}
+
+		double test()
+		{
+
+			cv::Mat_<cv::Vec3b> img;
+			img = cv::imread("./img/brdhand.png", CV_8SC3);
+
+			for (int i = 0; i < img.rows; i++)
+			{
+
+				for (int j = 0; j < img.cols; j++)
+				{
+					img(i, j) = 0;
+				}
+			}
+			const int64 start = cv::getTickCount();
+			cv::imshow("Hello", img);
+			double duration = (cv::getTickCount() - start) / cv::getTickFrequency();
+			
+
+		}
+
+
 	
 	}
 }
