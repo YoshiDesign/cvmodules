@@ -153,7 +153,7 @@ namespace engine {
 
 		}
 
-		// Edge Detection 1 - Video file
+		// Edge Detection 2 - WebCam
 		int capture4()
 		{
 
@@ -166,7 +166,7 @@ namespace engine {
 
 			// declare the window
 			//processor.displayInput("Current Frame");
-			processor.displayOutput("OutPut Frame");
+			processor.displayOutput("Output Frame");
 
 			// Play the video at the original framerate
 			processor.setDelay(1000.0 / processor.getFrameRate());

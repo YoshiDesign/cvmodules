@@ -9,8 +9,8 @@
 
 int main()
 {
-	engine::debug("Hello Lib");
-	//engine::vidcap::capture4();
+	//engine::debug("Hello Lib");
+	engine::vidcap::capture4();
 	
 	LOG("Sup");
 

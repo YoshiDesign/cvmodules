@@ -153,6 +153,7 @@ namespace engine{
 			cv::imshow("Hello", img);
 			double duration = (cv::getTickCount() - start) / cv::getTickFrequency();
 			
+			return 2.0;
 
 		}
 
