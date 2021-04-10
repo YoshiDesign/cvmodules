@@ -153,7 +153,7 @@ namespace engine {
 
 		}
 
-		// Edge Detection 2 - WebCam
+		// Uncanny video processing
 		int capture4()
 		{
 
@@ -165,7 +165,7 @@ namespace engine {
 			processor.setInput(deviceID + apiID);
 
 			// declare the window
-			//processor.displayInput("Current Frame");
+			processor.displayInput("Current Frame");
 			processor.displayOutput("Output Frame");
 
 			// Play the video at the original framerate
@@ -180,6 +180,7 @@ namespace engine {
 			return 0;
 
 		}
+
 
 	}
 }

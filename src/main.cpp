@@ -4,21 +4,20 @@
 #include "VidCap.h"
 #include "ImageFunctions.h"
 #include "ScanningFunctions.h"
+#include "feature/FeatureFunctions.h"
 
 #define LOG(a, b) std::cout<< a << std::endl;
 
 int main()
 {
 	//engine::debug("Hello Lib");
-	engine::vidcap::capture4();
-	
-	LOG("Sup");
+	FeatureFunctions::OpticalFlow();
 
 	//Performance reading
-	double time = engine::scanning::test();
-	std::cout << "T: "; LOG(time);
+	//double time = engine::scanning::test();
+	//std::cout << "T: "; LOG(time);
 
 	cv::waitKey(0);
-
+	
 	return 0;
 }

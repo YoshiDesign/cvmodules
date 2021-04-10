@@ -42,6 +42,7 @@ private:
 
 	// the OpenCV video capture object
 	cv::VideoCapture capture;
+
 	// the callback function to be called 
 	// for the processing of each frame
 	void(*process)(cv::Mat&, cv::Mat&);
@@ -73,7 +74,6 @@ private:
 	cv::VideoWriter writer;
 	// output filename
 	std::string outputFile;
-
 	// current index for output images
 	int currentIndex;
 	// number of digits in output image filename
