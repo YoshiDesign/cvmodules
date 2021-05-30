@@ -6,7 +6,7 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include "ImageFunctions.h"
-//#include "opencv2/objdetect.hpp"
+#include "opencv2/objdetect.hpp"
 
 namespace engine {
 
@@ -37,7 +37,7 @@ namespace engine {
 		{
 			
 			cv::Mat image;
-			image = cv::imread("./img/brdhand.png");
+			image = cv::imread("./img/birdhand.png");
 			for (int x = 0; x < 20; x++)
 			{
 			
@@ -103,7 +103,7 @@ namespace engine {
 			cv::imshow("Flerp", image2);
 			cv::waitKey(0);
 
-			cv::Mat image3 = cv::imread("./img/brdhand.png");
+			cv::Mat image3 = cv::imread("./img/birdhand.png");
 			cv::Mat image4(image3);
 
 			image3.copyTo(image2);
@@ -145,12 +145,9 @@ namespace engine {
 		void image4()
 		{
 
-			std::cout << "???????" << std::endl;
-			std::cout << "???????" << std::endl;
-
 			cv::Mat im1(720, 1080, CV_8UC3, cv::Scalar(90, 100, 100));
 			cv::Mat logo;
-			logo = cv::imread("./img/sum.bmp", 1);
+			logo = cv::imread("./img/tonz.png", 1);
 
 			cv::Rect roi = cv::Rect(im1.cols - logo.cols, im1.rows - logo.rows, logo.cols, logo.rows);
 			cv::Mat imageRoi(im1, roi);
@@ -160,6 +157,25 @@ namespace engine {
 			cv::waitKey(0);
 
 		}
+
+		void cannyFrame(cv::Mat& img, cv::Mat& out)
+		{
+			// convert to grey
+			if (img.channels() == 3)
+			{
+				cv::cvtColor(img, out, cv::COLOR_BGR2GRAY);
+
+			}
+
+			// compute canny edges
+			cv::Canny(out, out, 100, 200);
+
+			// invert the image
+			cv::threshold(out, out, 128, 255, cv::THRESH_BINARY_INV);
+
+
+		}
+
 
 		// Salt & pepper noise
 		void salt(cv::Mat img, int n) 
@@ -182,14 +198,14 @@ namespace engine {
 				else if (img.type() == CV_8UC3)
 				{
 					if (img.at<cv::Vec3b>(j, i)[0] >= 200) {
-						img.at<cv::Vec3b>(j, i)[0] = 15;
-						img.at<cv::Vec3b>(j, i)[1] = 15;
-						img.at<cv::Vec3b>(j, i)[2] = 15;
+						img.at<cv::Vec3b>(j, i)[0] = i % 10;
+						img.at<cv::Vec3b>(j, i)[1] = i % 115;
+						img.at<cv::Vec3b>(j, i)[2] = k % 255;
 					}
 					else {
-						img.at<cv::Vec3b>(j, i)[0] = 255;
-						img.at<cv::Vec3b>(j, i)[1] = 255;
-						img.at<cv::Vec3b>(j, i)[2] = 255;
+						img.at<cv::Vec3b>(j, i)[0] = j % 255;
+						img.at<cv::Vec3b>(j, i)[1] = j % 115;
+						img.at<cv::Vec3b>(j, i)[2] = j % 255;
 					}
 				}
 
@@ -198,11 +214,30 @@ namespace engine {
 		}
 		void image5()
 		{
-			cv::Mat img = cv::imread("./img/brdhand.png");
+			cv::Mat img = cv::imread("./img/tonz.png");
 			std::cout << img.channels() << std::endl;
-			salt(img, 13000);
-			cv::imshow("HelllO", img);
+			//salt(img, 50000);
+			cv::Mat out(720, 1080, CV_8UC3);
+
+			cannyFrame(img, out);
+
+			cv::imshow("HelllO", out);
+			
 			cv::waitKey(0);
+		}
+
+		// Edge detection
+		int image6()
+		{
+
+			cv::Mat img = cv::imread("./img/tonz.png");
+			cv::Mat out(720, 1080, CV_8UC3);
+
+			cannyFrame(img, out);
+
+			cv::imshow("Tonz", out);
+
+			return 0;
 		}
 
 

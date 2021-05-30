@@ -11,6 +11,8 @@ namespace engine {
 		void image3();
 		void image4();
 		void image5();
+		int image6();
+		void cannyFrame(cv::Mat& img, cv::Mat& out);
 
 	}
 

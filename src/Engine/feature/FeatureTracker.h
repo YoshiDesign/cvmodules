@@ -9,6 +9,7 @@
 class FeatureTracker : public FrameProcessor
 {
 private:
+
 	cv::Mat gray;		// Current Image
 	cv::Mat gray_prev;	// Previous Image
 
@@ -113,26 +114,27 @@ public:
 	// Used to reject uninteresting points, or points which cannot be tracked
 	bool acceptTrackedPoint(int i)
 	{
+		// Criteria : The position of this tracked point from 1 frame to the next is > 2
 		return status[i] &&
 			(abs(points[0][i].x - points[1][i].x) +
 			(abs(points[0][i].y - points[1][i].y)) > 2 );
 	}
 
 	// Iterate through tracked points and do stuff
-	void handleTrackedPoints(cv::Mat& frame, cv::Mat& output)
+	void handleTrackedPoints(const cv::Mat& frame, cv::Mat& output)
 	{
 		// for all tracked points
 		for (int i = 0; i < points[1].size(); i++)
 		{
-		
+
 			cv::line(output,
 				initial[i],			// Initial position of tracked feature
 				points[1][i],		// New position
 				cv::Scalar(255, 255, 255)
 			);
-			
+
 			cv::circle(output, points[1][i], 3, cv::Scalar(255, 255, 255), -1);
-				
+
 		}
 	}
 

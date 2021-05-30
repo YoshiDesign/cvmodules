@@ -12,7 +12,6 @@
 
 using namespace cv;
 
-
 //void detectAndDisplay(Mat frame);
 
 namespace engine {

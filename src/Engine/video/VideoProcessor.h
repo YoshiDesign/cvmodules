@@ -46,6 +46,7 @@ private:
 	// the callback function to be called 
 	// for the processing of each frame
 	void(*process)(cv::Mat&, cv::Mat&);
+
 	// the pointer to the class implementing 
 	// the FrameProcessor interface
 	FrameProcessor *frameProcessor;

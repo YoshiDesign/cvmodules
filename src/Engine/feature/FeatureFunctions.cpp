@@ -11,14 +11,13 @@ namespace FeatureFunctions {
 		FeatureTracker tracker;
 
 		// Open a video file
-		//processor.setInput("vid/clouds.mp4");
+		processor.setInput("vid/soundcheck.mp4");
 
 		// Or use a webcam
-		int deviceID = 0;
-		int apiID = cv::CAP_ANY;		// Autodetect default API
-
+		//int deviceID = 0;
+		//int apiID = cv::CAP_ANY;		// Autodetect default API
 		// open the video
-		processor.setInput(deviceID + apiID);
+		//processor.setInput(deviceID + apiID);
 
 		// set frame processor
 		processor.setFrameProcessor(&tracker);
