@@ -29,7 +29,7 @@ private:
 
 public:
 
-	FeatureTracker() : max_count(500), qlevel(0.01), minDist(10.0) {}
+	FeatureTracker() : max_count(500), qlevel(0.001), minDist(10.0) {}
 
 	void process(cv::Mat& frame, cv::Mat& output)
 	{

@@ -11,13 +11,13 @@
 int main()
 {
 	//engine::debug("Hello Lib");
-	//FeatureFunctions::OpticalFlow();
+	FeatureFunctions::OpticalFlow();
 	//engine::scanning::scan3();
 	//Performance reading
 	//double time = engine::scanning::test();
 	//std::cout << "T: "; LOG(time);
 
-	engine::imageFunctions::image5();
+	//engine::imageFunctions::image5();
 
 	cv::waitKey(0);
 	

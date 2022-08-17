@@ -11,8 +11,7 @@ namespace FeatureFunctions {
 		FeatureTracker tracker;
 
 		// Open a video file
-		processor.setInput("vid/soundcheck.mp4");
-
+		processor.setInput("vid/soundcheck.MP4");
 		// Or use a webcam
 		//int deviceID = 0;
 		//int apiID = cv::CAP_ANY;		// Autodetect default API
